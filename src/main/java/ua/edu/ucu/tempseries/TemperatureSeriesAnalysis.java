@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 public class TemperatureSeriesAnalysis {
     private double[] temperatures;
     private int temperaturesCount;
+    private static final int criticalTemp = -237;
 
     public TemperatureSeriesAnalysis() {
         this.temperatures = new double[0];
@@ -13,7 +14,7 @@ public class TemperatureSeriesAnalysis {
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp: temperatureSeries) {
-            if (temp < -237) {
+            if (temp < criticalTemp) {
                 throw new InputMismatchException();
             }
         }
@@ -36,7 +37,7 @@ public class TemperatureSeriesAnalysis {
         double value = 0;
         double aver = average();
         for (int i = 0; i < temperaturesCount; i++) {
-            value += Math.pow((temperatures[i] - aver), 2);
+            value += (temperatures[i] - aver) * (temperatures[i] - aver);
         }
         value /= temperaturesCount;
 
@@ -48,7 +49,7 @@ public class TemperatureSeriesAnalysis {
 
         double currentMin = temperatures[0];
         for (int i = 1; i < temperaturesCount; i++) {
-            if (currentMin > temperatures[i]){
+            if (currentMin > temperatures[i]) {
                 currentMin = temperatures[i];
             }
         }
@@ -60,7 +61,7 @@ public class TemperatureSeriesAnalysis {
 
         double currentMax = temperatures[0];
         for (int i = 1; i < temperaturesCount; i++) {
-            if (currentMax < temperatures[i]){
+            if (currentMax < temperatures[i]) {
                 currentMax = temperatures[i];
             }
         }
@@ -80,12 +81,12 @@ public class TemperatureSeriesAnalysis {
 
         for (int i = 1; i < temperaturesCount; i++) {
             differenceCurrent = Math.abs(tempValue - temperatures[i]);
-            if (differenceCurrent < differenceLast){
+            if (differenceCurrent < differenceLast) {
                 differenceLast = differenceCurrent;
                 currentClosest = temperatures[i];
             }
-            else if (differenceCurrent == differenceLast){
-                if (currentClosest < temperatures[i]){
+            else if (differenceCurrent == differenceLast) {
+                if (currentClosest < temperatures[i]) {
                     currentClosest = temperatures[i];
                 }
             }
@@ -101,14 +102,14 @@ public class TemperatureSeriesAnalysis {
         int i = 0;
 
         for (int j = 0; j < temperaturesCount; j++) {
-            if (temperatures[j] < tempValue){
+            if (temperatures[j] < tempValue) {
                 values[i] = temperatures[j];
                 i++;
             }
         }
 
         double[] results = new double[i];
-        if (i >= 0) System.arraycopy(values, 0, results, 0, i);
+        System.arraycopy(values, 0, results, 0, i);
 
         return results;
     }
@@ -120,14 +121,14 @@ public class TemperatureSeriesAnalysis {
         int i = 0;
 
         for (int j = 0; j < temperaturesCount; j++) {
-            if (temperatures[j] >= tempValue){
+            if (temperatures[j] >= tempValue) {
                 values[i] = temperatures[j];
                 i++;
             }
         }
 
         double[] results = new double[i];
-        if (i >= 0) System.arraycopy(values, 0, results, 0, i);
+        System.arraycopy(values, 0, results, 0, i);
 
         return results;
     }
@@ -143,14 +144,14 @@ public class TemperatureSeriesAnalysis {
         return temperaturesCount;
     }
 
-    private void appendToArray(double value){
-        if (value < -273){
+    private void appendToArray(double value) {
+        if (value < criticalTemp) {
             throw new InputMismatchException();
         }
 
-        if (temperaturesCount >= temperatures.length){
+        if (temperaturesCount >= temperatures.length) {
             double[] tempArray;
-            if (temperaturesCount == 0){
+            if (temperaturesCount == 0) {
                 tempArray = new double[1];
             } else {
                 tempArray = new double[temperaturesCount * 2];
@@ -162,8 +163,8 @@ public class TemperatureSeriesAnalysis {
         temperaturesCount++;
     }
 
-    private void checkArgument(){
-        if (temperatures.length == 0){
+    private void checkArgument() {
+        if (temperatures.length == 0) {
             throw new IllegalArgumentException();
         }
     }

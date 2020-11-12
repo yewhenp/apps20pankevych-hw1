@@ -132,7 +132,7 @@ public class TemperatureSeriesAnalysisTest {
         TemperatureSeriesAnalysis seriesAnalysis = new TemperatureSeriesAnalysis(temperatureSeries);
         double expResult = 1.0;
 
-        seriesAnalysis.addTemps(3.0, -5.0, -1.0);
+        seriesAnalysis.addTemps(3.0, -5.0, -1.0, -1.0);
         seriesAnalysis.addTemps(1.0, 5.0);
 
 
