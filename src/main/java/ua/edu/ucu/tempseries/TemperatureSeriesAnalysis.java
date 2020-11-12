@@ -19,7 +19,8 @@ public class TemperatureSeriesAnalysis {
             }
         }
 
-        this.temperatures = temperatureSeries;
+        this.temperatures = new double[temperatureSeries.length];
+        System.arraycopy(temperatureSeries, 0, temperatures, 0, temperatures.length);
         this.temperaturesCount = temperatureSeries.length;
     }
 
@@ -85,7 +86,7 @@ public class TemperatureSeriesAnalysis {
                 differenceLast = differenceCurrent;
                 currentClosest = temperatures[i];
             }
-            else if (differenceCurrent == differenceLast) {
+            else if (Math.abs(differenceCurrent - differenceLast) < 0.0000001) {
                 if (currentClosest < temperatures[i]) {
                     currentClosest = temperatures[i];
                 }
