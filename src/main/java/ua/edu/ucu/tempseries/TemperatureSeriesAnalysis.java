@@ -7,7 +7,7 @@ public class TemperatureSeriesAnalysis {
     private int temperaturesCount;
 
     public TemperatureSeriesAnalysis() {
-        this.temperatures = new double[10];
+        this.temperatures = new double[0];
         this.temperaturesCount = 0;
     }
 
@@ -101,12 +101,16 @@ public class TemperatureSeriesAnalysis {
         int i = 0;
 
         for (int j = 0; j < temperaturesCount; j++) {
-            if (temperatures[i] < tempValue){
-                values[i] = temperatures[i];
+            if (temperatures[j] < tempValue){
+                values[i] = temperatures[j];
                 i++;
             }
         }
-        return values;
+
+        double[] results = new double[i];
+        if (i >= 0) System.arraycopy(values, 0, results, 0, i);
+
+        return results;
     }
 
     public double[] findTempsGreaterThen(double tempValue) {
@@ -116,12 +120,16 @@ public class TemperatureSeriesAnalysis {
         int i = 0;
 
         for (int j = 0; j < temperaturesCount; j++) {
-            if (temperatures[i] >= tempValue){
-                values[i] = temperatures[i];
+            if (temperatures[j] >= tempValue){
+                values[i] = temperatures[j];
                 i++;
             }
         }
-        return values;
+
+        double[] results = new double[i];
+        if (i >= 0) System.arraycopy(values, 0, results, 0, i);
+
+        return results;
     }
 
     public TempSummaryStatistics summaryStatistics() {
@@ -140,8 +148,13 @@ public class TemperatureSeriesAnalysis {
             throw new InputMismatchException();
         }
 
-        if (temperaturesCount == temperatures.length){
-            double[] tempArray = new double[temperaturesCount * 2];
+        if (temperaturesCount >= temperatures.length){
+            double[] tempArray;
+            if (temperaturesCount == 0){
+                tempArray = new double[1];
+            } else {
+                tempArray = new double[temperaturesCount * 2];
+            }
             System.arraycopy(temperatures, 0, tempArray, 0, temperaturesCount);
             this.temperatures = tempArray;
         }
