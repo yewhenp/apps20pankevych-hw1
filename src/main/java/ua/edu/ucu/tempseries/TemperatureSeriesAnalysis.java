@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
     private static final int CRITICAL_TEMP = -237;
+    private static final double DELTA = 0.00000001;
     private double[] temperatures;
     private int temperaturesCount;
 
@@ -20,7 +21,8 @@ public class TemperatureSeriesAnalysis {
         }
 
         this.temperatures = new double[temperatureSeries.length];
-        System.arraycopy(temperatureSeries, 0, temperatures, 0, temperatures.length);
+        System.arraycopy(temperatureSeries, 0, temperatures,
+                0, temperatures.length);
         this.temperaturesCount = temperatureSeries.length;
     }
 
@@ -86,7 +88,7 @@ public class TemperatureSeriesAnalysis {
                 differenceLast = differenceCurrent;
                 currentClosest = temperatures[i];
             }
-            else if (Math.abs(differenceCurrent - differenceLast) < 0.0000001) {
+            else if (Math.abs(differenceCurrent - differenceLast) < DELTA) {
                 if (currentClosest < temperatures[i]) {
                     currentClosest = temperatures[i];
                 }
