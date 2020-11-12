@@ -3,9 +3,9 @@ package ua.edu.ucu.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
+    private static final int CRITICAL_TEMP = -237;
     private double[] temperatures;
     private int temperaturesCount;
-    private static final int criticalTemp = -237;
 
     public TemperatureSeriesAnalysis() {
         this.temperatures = new double[0];
@@ -14,7 +14,7 @@ public class TemperatureSeriesAnalysis {
 
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp: temperatureSeries) {
-            if (temp < criticalTemp) {
+            if (temp < CRITICAL_TEMP) {
                 throw new InputMismatchException();
             }
         }
@@ -145,7 +145,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     private void appendToArray(double value) {
-        if (value < criticalTemp) {
+        if (value < CRITICAL_TEMP) {
             throw new InputMismatchException();
         }
 

@@ -191,8 +191,10 @@ public class TemperatureSeriesAnalysisTest {
         seriesAnalysis.addTemps(3.0, -5.0);
         seriesAnalysis.addTemps(1.0, 5.0);
 
-
         TempSummaryStatistics actualResult = seriesAnalysis.summaryStatistics();
-        assertEquals(expResult, actualResult);
+        assertEquals(expResult.getAvgTemp(), actualResult.getAvgTemp(), 0.00001);
+        assertEquals(expResult.getDevTemp(), actualResult.getDevTemp(), 0.00001);
+        assertEquals(expResult.getMaxTemp(), actualResult.getMaxTemp(), 0.00001);
+        assertEquals(expResult.getMinTemp(), actualResult.getMinTemp(), 0.00001);
     }
 }
