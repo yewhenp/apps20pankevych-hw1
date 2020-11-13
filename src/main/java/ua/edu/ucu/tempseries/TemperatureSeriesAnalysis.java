@@ -8,11 +8,18 @@ public class TemperatureSeriesAnalysis {
     private double[] temperatures;
     private int temperaturesCount;
 
+    /**
+     * Create empty obj
+     */
     public TemperatureSeriesAnalysis() {
         this.temperatures = new double[0];
         this.temperaturesCount = 0;
     }
 
+    /**
+     * Create obj with given array of temps
+     * @param temperatureSeries array of temps
+     */
     public TemperatureSeriesAnalysis(double[] temperatureSeries) {
         for (double temp: temperatureSeries) {
             if (temp < CRITICAL_TEMP) {
@@ -26,6 +33,10 @@ public class TemperatureSeriesAnalysis {
         this.temperaturesCount = temperatureSeries.length;
     }
 
+    /**
+     * Returns average of temps
+     * @return average of temps
+     */
     public double average() {
         checkArgument();
 
@@ -36,6 +47,10 @@ public class TemperatureSeriesAnalysis {
         return sum / temperaturesCount;
     }
 
+    /**
+     * Returns deviation of temps
+     * @return deviation of temps
+     */
     public double deviation() {
         double value = 0;
         double aver = average();
@@ -47,6 +62,10 @@ public class TemperatureSeriesAnalysis {
         return value;
     }
 
+    /**
+     * Returns minimal temperature
+     * @return minimal temperature
+     */
     public double min() {
         checkArgument();
 
@@ -59,6 +78,10 @@ public class TemperatureSeriesAnalysis {
         return currentMin;
     }
 
+    /**
+     * Returns maximal temperature
+     * @return maximal temperature
+     */
     public double max() {
         checkArgument();
 
@@ -71,10 +94,19 @@ public class TemperatureSeriesAnalysis {
         return currentMax;
     }
 
+    /**
+     * Returns closest to 0 temperature
+     * @return closest to 0 temperature
+     */
     public double findTempClosestToZero() {
         return findTempClosestToValue(0);
     }
 
+    /**
+     * Returns closest to 0 temperature
+     * @param tempValue value ro find closest
+     * @return closest to 0 temperature
+     */
     public double findTempClosestToValue(double tempValue) {
         checkArgument();
 
@@ -98,6 +130,11 @@ public class TemperatureSeriesAnalysis {
         return currentClosest;
     }
 
+    /**
+     * Returns array of temperatures, less than value
+     * @param tempValue limit of temperatures
+     * @return array of temperatures
+     */
     public double[] findTempsLessThen(double tempValue) {
         checkArgument();
 
@@ -117,6 +154,11 @@ public class TemperatureSeriesAnalysis {
         return results;
     }
 
+    /**
+     * Returns array of temperatures, greater\equal than value
+     * @param tempValue limit of temperatures
+     * @return array of temperatures
+     */
     public double[] findTempsGreaterThen(double tempValue) {
         checkArgument();
 
@@ -136,10 +178,19 @@ public class TemperatureSeriesAnalysis {
         return results;
     }
 
+    /**
+     * Returns TempSummaryStatistics with main statictic
+     * @return TempSummaryStatistics
+     */
     public TempSummaryStatistics summaryStatistics() {
         return new TempSummaryStatistics(average(), deviation(), min(), max());
     }
 
+    /**
+     * Adds temperatures to array
+     * @param temps values of temperature
+     * @return number of temperatures in array
+     */
     public int addTemps(double... temps) {
         for (double temp: temps) {
             appendToArray(temp);
@@ -147,6 +198,10 @@ public class TemperatureSeriesAnalysis {
         return temperaturesCount;
     }
 
+    /**
+     * Appends single value to array
+     * @param value temperature to append
+     */
     private void appendToArray(double value) {
         if (value < CRITICAL_TEMP) {
             throw new InputMismatchException();
@@ -166,6 +221,9 @@ public class TemperatureSeriesAnalysis {
         temperaturesCount++;
     }
 
+    /**
+     * Check if array is not empty
+     */
     private void checkArgument() {
         if (temperatures.length == 0) {
             throw new IllegalArgumentException();
