@@ -3,7 +3,7 @@ package ua.edu.ucu.tempseries;
 import java.util.InputMismatchException;
 
 public class TemperatureSeriesAnalysis {
-    private static final int CRITICAL_TEMP = -237;
+    private static final double CRITICAL_TEMP = -273.15;
     private static final double DELTA = 0.00000001;
     private double[] temperatures;
     private int temperaturesCount;
